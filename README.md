@@ -6,12 +6,12 @@
 This workshop creates Kubernetes demo environment that is instantiated in AWS. The key technologies used are Packer, Terraform, Ansible, and bash.
 
 The workshop consists of a fully working OpenSource Kubernetes 3-node cluster (one master, 2 worker-nodes) and the following applications:
-* NGINX ingress controller
+* NGINX - Acts as a North/South router outside of the cluster to direct traffic into kubernetes.
 * Axway API Management - Includes API Manager, API Gateway, and Node Manager
 
 The entire workshop installs and instantiates with the steps below, and will use the latest available version for all open-source and commercial software included.
 
-NOTE: This will not create a proprietary EKS Kubernetes cluster (AWS commercial offering). It will create an OpenSource Kubernetes environment using 3x AWS EC2 machines.
+***NOTE***: This will not create a proprietary EKS Kubernetes cluster (AWS commercial offering). It will create an OpenSource Kubernetes environment using 3x AWS EC2 machines.
 
 ## Prerequisites
 
@@ -106,7 +106,9 @@ Again, don't forget to substitute the subdomain for whatever you chose in stage 
 You should now have a fully working APIM system within your kubernetes cluster. You can access it with the following links:
 
 Axway API Manager:		https://apimanager.kubernetes0004.axwaydemo.net/home
+
 API Gateway Manager:	https://apigateway.kubernetes0004.axwaydemo.net/login/
+
 API traffic:			https://api.kubernetes0004.axwaydemo.net/
 
 Have fun!
