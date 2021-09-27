@@ -49,9 +49,11 @@ cd axway_k8s_Axway_APIM_3_node_cluster
 
 3. Run the initiation script configure_workshop_name_XXXXXXX.sh and enter a subdomain name for your workshop. This must be unique to you, since there may be several other workshops running concurrently. Just stick to lower-case letters and numbers, a good example would be: fredblogs . The two scripts below support various operating systems, be sure to use the correct one to change the subdomain name from the default:
 ```
+# For GNU Linux systems, such as Ubuntu etc. please use:
 ./configure_workshop_name_GNU_Linux.sh
 ```
 ```
+#For OSX based systems, native to Apple Mac computers please use:
 ./configure_workshop_name_MACOS_Linux.sh
 
 ```
