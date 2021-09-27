@@ -111,4 +111,17 @@ API Gateway Manager:	https://apigateway.kubernetes0004.axwaydemo.net/login/
 
 API traffic:			https://api.kubernetes0004.axwaydemo.net/
 
+## Licensing your Axway API Manager
+
+This project currently contains a trial license for Axway APIM v7.7 which will expire at the end of October 2021.
+
+You will see this license inside the project file: https://github.com/temporarychicken/axway_k8s_Axway_APIM_3_node_cluster/blob/main/2_packer/k8s_configuration/axway_license_configmap.yaml
+
+Starting at line 12 will be the current Axway license. If you need to refresh the trial license or move into full production, paste your new license in over the top of the old license starting at line 12.
+
+Be sure to preserve the intentation as already exists in the file, since indentation is mandatory in yaml documents.
+
+Once you have updated the license file, you'll need to re-pack your virtual machine, so go back to step 10 in these instructions.
+
+
 Have fun!
