@@ -1,0 +1,48 @@
+---
+kind: Ingress
+apiVersion: extensions/v1beta1
+metadata:
+  name: ingressv1
+  namespace: default
+  annotations:
+
+    nginx.org/ssl-services: "apimgr,anm,traffic"
+
+    
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - kubernetes.kubernetes0004.axwaydemo.net
+    - k8sdashboard.kubernetes0004.axwaydemo.net
+    - ingressdashboard.kubernetes0004.axwaydemo.net
+    - apimanager.kubernetes0004.axwaydemo.net
+    - apigateway.kubernetes0004.axwaydemo.net
+    - api.kubernetes0004.axwaydemo.net
+
+    secretName: default-server-secret
+    
+  rules:
+  - host: apimanager.kubernetes0004.axwaydemo.net
+    http:
+      paths:
+      - path: "/"
+        backend:
+          serviceName: apimgr
+          servicePort: 8075
+
+  - host: apigateway.kubernetes0004.axwaydemo.net
+    http:
+      paths:
+      - path: "/"
+        backend:
+          serviceName: anm
+          servicePort: 8090
+          
+  - host: api.kubernetes0004.axwaydemo.net
+    http:
+      paths:
+      - path: "/"
+        backend:
+          serviceName: traffic
+          servicePort: 8065         

@@ -1,0 +1,175 @@
+{
+  "description": "Create a base CentOS 8 machine running docker that can be used for both k8s master and k8s worker nodes",
+  "variables": {
+    "home": "{{env `HOME`}}",
+    "aws_access_key": "",
+    "aws_secret_key": "",
+    "region": "eu-west-2"
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "name": "k8s-base-docker-machine",
+      "ami_name": "k8s-base-docker-machine {{isotime \"2006-01-02\"}}{{uuid}}",
+      "instance_type": "t2.large",
+      "region": "{{user `region`}}",
+      "source_ami": "ami-05cc99c0a1894da6e",
+      "ssh_username": "centos",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "tags": {
+        "Name": "kubernetes0004.k8s-base-machine"
+      }
+    }
+  ],
+
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "{{user `home`}}/.ssh/ngx-certs",
+      "destination": "certs",
+      "only": [
+        "k8s-base-docker-machine"
+      ]
+    },
+    {
+      "type": "file",
+      "source": "bash_scripts",
+      "destination": "~",
+      "only": [
+        "k8s-base-docker-machine"
+      ]
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "#mkdir certs"
+      ],
+      "only": [
+        "k8s-base-docker-machine"
+      ]
+    },
+    {
+      "type": "file",
+      "source": "../certs/",
+      "destination": "certs",
+      "only": [
+        "k8s-base-docker-machine"
+      ]
+    },
+
+    {
+      "type": "file",
+      "source": "hosts",
+      "destination": "hosts",
+      "only": [
+        "k8s-base-docker-machine"
+      ]
+    },
+
+	{
+      "type": "file",
+      "source": "nginx.conf",
+      "destination": "nginx.conf",
+      "only": [
+        "k8s-base-docker-machine"
+      ]
+    },
+
+    {
+      "type": "shell",
+      "inline": [
+        "sudo -H dnf update -y",
+		"#sudo dnf install firewalld -y",
+		"#sudo systemctl enable firewalld",
+		"#sudo systemctl start firewalld",
+		
+		"echo ######################### INSTALLING GIT #############################",
+		"sudo dnf install git -y",
+		
+		"echo ######################## INSTALLING HELM #############################",
+		"curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3",
+		"chmod 700 get_helm.sh",
+		"./get_helm.sh",
+
+		"echo ######################## INSTALLING DOCKER AND SETTING FIREWALL UP FOR FUTURE K8S INSTALL #############################",
+		"sudo cat hosts /etc/hosts",
+		"sudo sh bash_scripts/setup_selinux_and_fw.sh",
+		"sudo sh bash_scripts/install_docker.sh",
+		"sudo dnf install bind-utils -y",
+		
+        "#sudo -H apt install -y python-pip",
+        "#sudo -H pip install ansible",
+
+		"echo ######################## INSTALL NGINX REVERSE PROXY #############################",
+		"sudo yum install nginx -y",
+		"sudo systemctl enable nginx",
+		"sudo cp nginx.conf /etc/nginx/",
+
+		"echo ######################### CREATING A PRIVATE KEY FOR FUTURE SSH ACCESS TO MACHINES USING THIS IMAGE #############################",
+
+		
+		"ssh-keygen -f /tmp/sshkey -q -N ''",
+		"chmod +r /tmp/sshkey",
+		"mkdir k8s_configuration"
+      ],
+      "only": [
+        "k8s-base-docker-machine"
+      ]
+    },
+   {
+      "type": "file",
+      "destination": "{{user `home`}}/.ssh/k8s-key.pub",
+      "source": "/tmp/sshkey.pub",
+	  "direction" : "download",
+      "only": [
+        "k8s-base-docker-machine"
+      ]
+    },
+   {
+      "type": "file",
+      "destination": "{{user `home`}}/.ssh/k8s-key.pem",
+      "source": "/tmp/sshkey",
+	  "direction" : "download",
+      "only": [
+        "k8s-base-docker-machine"
+      ]
+    },
+   {
+      "type": "file",
+      "destination": "../3_terraform/k8s-key.pem",
+      "source": "/tmp/sshkey",
+	  "direction" : "download",
+      "only": [
+        "k8s-base-docker-machine"
+      ]
+    },
+
+   {
+      "type": "file",
+      "destination": "keys/k8s-key.pem",
+      "source": "/tmp/sshkey",
+	  "direction" : "download",
+      "only": [
+        "k8s-base-docker-machine"
+      ]
+    },
+    {
+      "type": "file",
+      "source": "k8s_configuration",
+      "destination": "k8s_configuration",
+      "only": [
+        "k8s-base-docker-machine"
+      ]
+    },
+	{
+      "type": "file",
+      "source": "kubeadm.config",
+      "destination": "kubeadm.config",
+      "only": [
+        "k8s-base-docker-machine"
+      ]
+    }
+
+  ]
+}

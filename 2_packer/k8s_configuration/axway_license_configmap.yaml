@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: license
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    meta.helm.sh/release-name: axwayapim
+    meta.helm.sh/release-namespace: default 
+data:
+  license: |
+    FIPS=1
+    SalesForce Connector=1
+    ServiceNow Connector=1
+    analytics=1
+    api_visual_mapper=1
+    apiportal=1
+    company=Axway
+    deployment_type=nondocker
+    expires=Thu, 30 Sep 2021 16:06:32 GMT
+    license_id=TEMP
+    mcafee=1
+    name=Axway
+    sdkgenerator=1
+    unrestricted=1
+    version=7.7
+    # SIGNATURE: dd803780513bf4f5fbc0e32e1e896574a0e3e26205d5faa75640714fd9bde174
+    # SIGNATURE: 2cbac39e34eaf46c203dc7527c9da752a3979a823cccdbfc2f245f7f97f46a0d
+    # SIGNATURE: af675bf9f3525ee13e157e88e5797e999eee3dec9c7dccf271196608a3429a27
+    # SIGNATURE: b0308028194d947d0c3ed4cf3cdb869e49bbf64478e7ff444cfbde88ae682892
+    # SIGNATURE: 8ab25d4517f4973daaa97f6eca8f3dcf8d0141398bb9bf47ad4c6294af838dff
+    # SIGNATURE: ff61aa9502e05f5627e834a8f6a759ca4f9b49f230c183a52b0a450fce7dc981
+    # SIGNATURE: fb5bf4d28a0aa75f501b372ec0ed0923b03b44d358fd0b39bc61a4c610d92f31
+    # SIGNATURE: da29068a5fd288fae9502cba17e2c94e1e8730bb296a97b392dfd46e1e3653d4
