@@ -49,8 +49,10 @@ cd axway_k8s_Axway_APIM_3_node_cluster
 
 3. Run the initiation script configure_workshop_name_XXXXXXX.sh and enter a subdomain name for your workshop. This must be unique to you, since there may be several other workshops running concurrently. Just stick to lower-case letters and numbers, a good example would be: fredblogs . The two scripts below support various operating systems, be sure to use the correct one to change the subdomain name from the default:
 ```
-configure_workshop_name_GNU_Linux.sh
-configure_workshop_name_MACOS_Linux.sh
+./configure_workshop_name_GNU_Linux.sh
+```
+```
+./configure_workshop_name_MACOS_Linux.sh
 
 ```
 
@@ -71,12 +73,12 @@ cd 1_terraform-create-or-refresh-certs
 ***NOTE:*** Once this base machine is built it will be stored in the AWS AMI store. You won't need to build it again unless you wish to update the base machine. Stage 3 (terraform) can be created and destroyed as many times as you like without requiring stage 2 again. This is true for any subdomain.
 ```
 cd ../2_packer
-packer build pack_k8s_base_docker_machine.json
+packer build pack_docker_base_machine.json
 ```
 11. Once your  Docker base-machine is built, you can terraform the entire kubernetes cluster using stage 3:
 ```
 cd ../3_terraform
-./create_cluster_with_APIM.sh
+./create_k8s_cluster_with_APIM.sh
 ```
 12. You now should have, after approximately 5 minutes - a fully working 3 node kubernetes cluster.
 
