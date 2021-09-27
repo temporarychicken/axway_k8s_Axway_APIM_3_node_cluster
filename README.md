@@ -1,4 +1,4 @@
-# Axway Kubernetes Workshop - Build a K8S cluster from zero, optionally with Axway APIM and Istio Service Mesh
+# Axway Kubernetes Workshop - Build a K8S cluster from zero including Axway APIM
 ![alt text](https://www.axway.com/sites/default/files/2019-09/axway.png "Logo Title Text 1")
 
 ## Introduction
@@ -10,6 +10,8 @@ The workshop consists of a fully working OpenSource Kubernetes 3-node cluster (o
 * Axway API Management - Includes API Manager, API Gateway, and Node Manager
 
 The entire workshop installs and instantiates with the steps below, and will use the latest available version for all open-source and commercial software included.
+
+NOTE: This will not create a proprietary EKS Kubernetes cluster (AWS commercial offering). It will create an OpenSource Kubernetes environment using 3x AWS EC2 machines.
 
 ## Prerequisites
 
@@ -27,6 +29,7 @@ The entire workshop installs and instantiates with the steps below, and will use
 * Terraform - a shell command line tool, install from here:
         https://learn.hashicorp.com/terraform/getting-started/install.html
  * A domain name registration within AWS Route 53. This can be any domain name of your choosing, the default will be axwaydemo.net which is registered and owned by Axway.
+If you don't have access to axwaydemo.net then you'll need to edit the project files to replace this domain with your own.
  * The git command line tool. This can be installed from the relevant repo within your linux distro.
 
 ## Instructions
@@ -36,14 +39,15 @@ With the above pre-requisites in place execute the following steps to instantiat
 1. Clone this git repository onto your workstation. This will create a copy of the workshop locally:
 
 ```
-          git clone https://github.com/temporarychicken/axway_k8s_Axway_APIM_3_node_cluster
+git clone https://github.com/temporarychicken/axway_k8s_Axway_APIM_3_node_cluster
 ```
 
 2. cd into the newly created axway_APIM_kubernetes directory
+```
+cd axway_k8s_Axway_APIM_3_node_cluster
+```
 
-3. Run the initiation script configure_workshop_name_XXXXXXX.sh and enter a subdomain name for your workshop. This must be unique to you, since there may be several other workshops running concurrently. Just stick to lower-case letters and numbers, a good example would be: fredblogs
-
-The two scripts below support various operating systems, be sure to use the correct one to change the subdomain name from the default:
+3. Run the initiation script configure_workshop_name_XXXXXXX.sh and enter a subdomain name for your workshop. This must be unique to you, since there may be several other workshops running concurrently. Just stick to lower-case letters and numbers, a good example would be: fredblogs . The two scripts below support various operating systems, be sure to use the correct one to change the subdomain name from the default:
 ```
 configure_workshop_name_GNU_Linux.sh
 configure_workshop_name_MACOS_Linux.sh
@@ -52,19 +56,24 @@ configure_workshop_name_MACOS_Linux.sh
 
 4. cd into the step 1_terraform-create-or-refresh-certs directory. This will enable you to create some TLS Certificates for your new domain, which will be, for example, ***fredblogs.axwaydemo.net***
 
+```
+cd 1_terraform-create-or-refresh-certs
+```
+
 8. Apply the terraform plan to create your certificates and keys. You'll get a wildcard cert for your domain, an intermediate cert to tie it back to the root CA, and also a private key.
 ```
 ./create_certs.sh
 ```
 9. Your certs and key will now be visible in a new 'certs' directory.
+
 10. The next step is to build your base docker machine. This will be based on an existing CentOS image from AWS, but with docker installed ready for instantiation into a fully working kubernetes system at the next stage.
 
-NOTE: Once this base machine is built it will be stored in the AWS AMI store. You won't need to build it again unless you wish to update the base machine. Stage 3 (terraform) can be created and destroyed as many times as you like without requiring stage 2 again. This is true for any subdomain.
+***NOTE:*** Once this base machine is built it will be stored in the AWS AMI store. You won't need to build it again unless you wish to update the base machine. Stage 3 (terraform) can be created and destroyed as many times as you like without requiring stage 2 again. This is true for any subdomain.
 ```
 cd ../2_packer
 packer build pack_k8s_base_docker_machine.json
 ```
-11. Once your  Docker base-machine is built, you can terraform the entire kubernetes cluster using stage 3_terraform
+11. Once your  Docker base-machine is built, you can terraform the entire kubernetes cluster using stage 3:
 ```
 cd ../3_terraform
 ./create_cluster_with_APIM.sh
