@@ -35,7 +35,7 @@
     {
       "type": "shell",
       "inline": [
-        "#mkdir certs"
+        "mkdir certs"
       ],
       "only": [
         "k8s-base-docker-machine"
