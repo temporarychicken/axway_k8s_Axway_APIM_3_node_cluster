@@ -26,14 +26,6 @@
   "provisioners": [
     {
       "type": "file",
-      "source": "{{user `home`}}/.ssh/ngx-certs",
-      "destination": "certs",
-      "only": [
-        "k8s-base-docker-machine"
-      ]
-    },
-    {
-      "type": "file",
       "source": "bash_scripts",
       "destination": "~",
       "only": [
