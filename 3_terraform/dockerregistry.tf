@@ -13,7 +13,13 @@ resource "aws_instance" "kubernetes0004-docker-registry" {
 
   tags = {
     Name = "kubernetes0004-docker-registry"
+	Project = "UKI Kubernetes Workshop instance: kubernetes0004"	
   }
+  
+  volume_tags = {
+	Project = "UKI Kubernetes Workshop instance: kubernetes0004"	
+  }
+  
 }
 
 

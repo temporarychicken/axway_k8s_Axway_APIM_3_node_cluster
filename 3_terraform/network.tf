@@ -3,6 +3,30 @@ resource "aws_vpc" "main" {
 
   tags = {
     Name = "k8sDemo-kubernetes0004"
+	Project = "UKI Kubernetes Workshop instance: kubernetes0004"
+  }
+}
+
+resource "aws_default_security_group" "default" {
+  vpc_id = aws_vpc.main.id
+
+  ingress {
+    protocol  = -1
+    self      = true
+    from_port = 0
+    to_port   = 0
+  }
+
+  tags = {
+    Name = "k8sDemo-kubernetes0004"
+	Project = "UKI Kubernetes Workshop instance: kubernetes0004"
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
@@ -13,6 +37,7 @@ resource "aws_subnet" "main" {
 
   tags = {
     Name = "k8sDemo-kubernetes0004"
+	Project = "UKI Kubernetes Workshop instance: kubernetes0004"
   }
 }
 
@@ -21,6 +46,7 @@ resource "aws_internet_gateway" "gw" {
 
   tags = {
     Name = "k8sDemo-kubernetes0004"
+	Project = "UKI Kubernetes Workshop instance: kubernetes0004"
   }
 }
 
@@ -41,6 +67,7 @@ resource "aws_route_table" "rt" {
 
   tags = {
     Name = "k8sDemo-kubernetes0004"
+	Project = "UKI Kubernetes Workshop instance: kubernetes0004"
   }
 }
 

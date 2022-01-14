@@ -7,9 +7,13 @@ resource "aws_instance" "kubernetes0004-worker-node-1" {
   subnet_id                   = aws_subnet.main.id
   private_ip                  = "10.0.0.40"
 
-
+  
+  volume_tags = {
+	Project = "UKI Kubernetes Workshop instance: kubernetes0004"	
+  }
 
   tags = {
     Name = "kubernetes0004-worker-node-1"
+	Project = "UKI Kubernetes Workshop instance: kubernetes0004"
   }
 }

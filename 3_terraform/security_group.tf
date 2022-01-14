@@ -3,6 +3,12 @@ resource "aws_security_group" "nginx-web-facing" {
   description = "Allow TLS,HTTP,SSH inbound traffic"
   vpc_id      = aws_vpc.main.id
 
+
+  tags = {
+    Name = "UKI K8S kubernetes0004"
+	Project = "UKI Kubernetes Workshop instance: kubernetes0004"
+  }
+
   ingress {
     description = "HTTPS"
     from_port   = 443
@@ -107,8 +113,4 @@ resource "aws_security_group" "nginx-web-facing" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-
-  tags = {
-    Name = "ControllerDemo"
-  }
 }

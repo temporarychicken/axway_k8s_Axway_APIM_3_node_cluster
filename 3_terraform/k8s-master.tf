@@ -26,8 +26,14 @@ resource "aws_instance" "kubernetes0004-k8s-master" {
     ]
   }
 
+  
+  volume_tags = {
+	Project = "UKI Kubernetes Workshop instance: kubernetes0004"	
+  }
+
   tags = {
     Name = "kubernetes0004-k8s-master"
+	Project = "UKI Kubernetes Workshop instance: kubernetes0004"
   }
 }
 
