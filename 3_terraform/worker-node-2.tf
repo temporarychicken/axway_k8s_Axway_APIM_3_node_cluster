@@ -1,6 +1,6 @@
 resource "aws_instance" "kubernetes0004-worker-node-2" {
   ami                         = data.aws_ami.k8s-base-machine.id # eu-west-2
-  instance_type               = "t2.large"
+  instance_type               = "t2.xlarge"
   key_name                    = "k8s-server-key-kubernetes0004"
   associate_public_ip_address = true
   security_groups             = [aws_security_group.nginx-web-facing.id]

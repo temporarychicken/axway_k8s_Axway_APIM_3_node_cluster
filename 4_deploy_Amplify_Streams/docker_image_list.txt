@@ -1,0 +1,29 @@
+#axway/streams-hub:2.0.2-2	
+#axway/streams-publisher-http-poller:2.0.2-2
+#axway/streams-publisher-http-post:2.0.2-2
+#axway/streams-subscriber-sse:2.0.2-2
+#axway/streams-subscriber-webhook:2.0.2-2
+
+
+#Login to Amplify Docker Registry using a platform-generated Service Account (ClientID type)
+docker login -u dluke_a2275336-f9b1-42a5-87a1-8908abf209fb -p 58d9c8e8-bb0c-46bd-b69d-42ad298c68fe docker.repository.axway.com
+
+
+#                domain                      namespace                       /image       tag
+sudo docker pull docker.repository.axway.com/axwaystreams-docker-prod-ptx/2.0/streams-hub:2.0.2-2
+sudo docker pull docker.repository.axway.com/axwaystreams-docker-prod-ptx/2.0/streams-publisher-http-poller:2.0.2-2
+sudo docker pull docker.repository.axway.com/axwaystreams-docker-prod-ptx/2.0/streams-publisher-http-post:2.0.2-2
+sudo docker pull docker.repository.axway.com/axwaystreams-docker-prod-ptx/2.0/streams-subscriber-sse:2.0.2-2
+sudo docker pull docker.repository.axway.com/axwaystreams-docker-prod-ptx/2.0/streams-subscriber-webhook:2.0.2-2
+
+#Amplify Service Account:
+export CLIENTID=dluke_a2275336-f9b1-42a5-87a1-8908abf209fb
+export CLIENTSECRET=58d9c8e8-bb0c-46bd-b69d-42ad298c68fe
+
+
+#export REGISTRY_USERNAME=dluke_a2275336-f9b1-42a5-87a1-8908abf209fb
+#export REGISTRY_PASSWORD=58d9c8e8-bb0c-46bd-b69d-42ad298c68fe
+export NAMESPACE=amplify-streams
+
+export REGISTRY_SERVER="docker.repository.axway.com"
+kubectl create secret docker-registry "${REGISTRY_SECRET_NAME}" --docker-server="${REGISTRY_SERVER}"  --docker-username="${REGISTRY_USERNAME}" --docker-password="${REGISTRY_PASSWORD}" -n "${NAMESPACE}"
