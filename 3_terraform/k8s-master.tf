@@ -57,7 +57,8 @@ resource "null_resource" "displayk8stoken" {
         inline = [
 		"#sleep 30s",
 		"sudo systemctl restart nginx",
-		"./bash_scripts/install_APIM.sh | true",
+		"#./bash_scripts/install_APIM.sh | true",
+		"#./bash_scripts/install_Amplify_Streams.sh | true",
 		"#cd Cloud-Automation;helm upgrade axwayapimplatform APIM/amplify-apim-7.7-1.3.0.tgz --reuse-values --set dynamicLicense=true",
 		"echo 'Here is your access token for logging into the Kubernetes Dashboard at https://k8s-master.kubernetes0004.axwaydemo.net:32443'",
 		"kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')"
@@ -70,7 +71,7 @@ resource "null_resource" "displayk8stoken" {
 
   provisioner "local-exec" {
   
-        command = "echo 'To log into your k8s-master node via ssh and access the kubectl command, together with scripts to install APIM and ISTIO, use:';echo 'ssh-keygen -R k8s-master.kubernetes0004.axwaydemo.net';echo 'ssh -i ~/.ssh/k8s-key.pem centos@k8s-master.kubernetes0004.axwaydemo.net'"
+        command = "echo 'To log into your k8s-master node via ssh and access the kubectl command, together with scripts to install APIM, STREAMS, and ISTIO, use:';echo 'ssh-keygen -R k8s-master.kubernetes0004.axwaydemo.net;ssh -i ~/.ssh/k8s-key.pem centos@k8s-master.kubernetes0004.axwaydemo.net'"
   
   }		
   

@@ -11,7 +11,7 @@ spec:
   persistentVolumeReclaimPolicy: Delete
   storageClassName: my-nfs
   nfs:
-    path: /mnt/nfs_shares
+    path: /mnt/nfs_shares/pv-nfs1
     server: 10.0.0.30 
 ...    
 ---
@@ -27,7 +27,7 @@ spec:
   persistentVolumeReclaimPolicy: Delete
   storageClassName: my-nfs
   nfs:
-    path: /mnt/nfs_shares
+    path: /mnt/nfs_shares/pv-nfs2
     server: 10.0.0.30
 ...
 ---
@@ -43,7 +43,7 @@ spec:
   persistentVolumeReclaimPolicy: Delete
   storageClassName: my-nfs
   nfs:
-    path: /mnt/nfs_shares
+    path: /mnt/nfs_shares/pv-nfs-rwo1
     server: 10.0.0.30
 ...
 ---
@@ -59,7 +59,7 @@ spec:
   persistentVolumeReclaimPolicy: Delete
   storageClassName: my-nfs
   nfs:
-    path: /mnt/nfs_shares
+    path: /mnt/nfs_shares/pv-nfs-rwo2
     server: 10.0.0.30
 ...
 ---
@@ -75,7 +75,7 @@ spec:
   persistentVolumeReclaimPolicy: Delete
   storageClassName: my-nfs
   nfs:
-    path: /mnt/nfs_shares
+    path: /mnt/nfs_shares/pv-nfs-rwo3
     server: 10.0.0.30
 ...
 ---
@@ -91,7 +91,7 @@ spec:
   persistentVolumeReclaimPolicy: Delete
   storageClassName: my-nfs
   nfs:
-    path: /mnt/nfs_shares
+    path: /mnt/nfs_shares/pv-nfs-rwo4
     server: 10.0.0.30
 ...
 ---
@@ -107,7 +107,7 @@ spec:
   persistentVolumeReclaimPolicy: Delete
   storageClassName: my-nfs
   nfs:
-    path: /mnt/nfs_shares
+    path: /mnt/nfs_shares/pv-nfs-rwo5
     server: 10.0.0.30
 ...
 ---
@@ -123,6 +123,6 @@ spec:
   persistentVolumeReclaimPolicy: Delete
   storageClassName: my-nfs
   nfs:
-    path: /mnt/nfs_shares
+    path: /mnt/nfs_shares/pv-nfs-rwo6
     server: 10.0.0.30
 ...

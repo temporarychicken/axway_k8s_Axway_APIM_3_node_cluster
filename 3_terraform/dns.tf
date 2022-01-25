@@ -4,7 +4,9 @@
 # region  = "eu-west-2"
 #}
 
-
+###################################################################################
+# AXWAY API MANAGER SPECIFIC DNS ENTRIES
+###################################################################################
 
 resource "aws_route53_record" "apimanager-kubernetes0004" {
   zone_id = data.aws_route53_zone.selected.zone_id
@@ -33,6 +35,9 @@ resource "aws_route53_record" "api-kubernetes0004" {
 
 }
 
+###################################################################################
+# GENERAL DNS ENTRIES
+###################################################################################
 
 
 
@@ -126,6 +131,20 @@ resource "aws_route53_record" "cafe2-kubernetes0004" {
   ttl     = "60"
 # records = ["${chomp(http.myip.body)}"]
 #  records = [ aws_instance.kubernetes0004-nginx-plus-gateway-1.public_ip ]
+  records = [ aws_instance.kubernetes0004-k8s-master.public_ip ]
+
+}
+
+######################################
+# AMPLIFY STREAMS SPECIFIC ENTRIES
+######################################
+
+resource "aws_route53_record" "streams-kubernetes0004" {
+  zone_id = data.aws_route53_zone.selected.zone_id
+  name    = "streams.kubernetes0004.${data.aws_route53_zone.selected.name}"
+  type    = "A"
+  ttl     = "60"
+
   records = [ aws_instance.kubernetes0004-k8s-master.public_ip ]
 
 }
